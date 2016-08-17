@@ -12,7 +12,14 @@
   },
   "keywords": [
     "upstream",
-    "proxy"
+    "proxy",
+    "hostheader",
+    "host header",
+    "router",
+    "dispatcher",
+    "nginx",
+    "adapter",
+    "connector"
   ],
   "author": "Michael Kortstiege",
   "license": "MIT",
