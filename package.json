@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/nodexo/upstream-proxy/issues"
   },
-  "homepage": "https://github.com/nodexo/upstream-proxy#readme"
+  "homepage": "https://github.com/nodexo/upstream-proxy#readme",
+  "dependencies": {
+    "sni": "^1.0.0"
+  }
 }
