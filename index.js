@@ -128,34 +128,28 @@ class UpstreamProxy {
   }
 
   generateRoutes(config) {
-    /**
-      - Prefix IPC backends (OS specific)
-      - Generate endpoints map
-    */
-    let endpoints = new Map();
-    let prefix = process.platform === 'win32' ? '//./pipe/' : '/tmp/';
-    if (config.backend_connectors) {
-      for (let bc of config.backend_connectors) {
-        if (bc.endpoints.ipc) {
-          bc.endpoints.ipc = prefix + bc.endpoints.ipc;
-        }
-        endpoints.set(bc.name, bc.endpoints);
-      }
-    }
-    /**
-      Make routes
-    */
+    let endpoints = this.generateEndpointsMap(config.backend_connectors);
     let routes = {};
-    if (config.frontend_connectors) {
-      for (let fc of config.frontend_connectors) {
-        for (let hh of fc.host_headers) {
-          routes[hh] = endpoints.get(fc.target);
-          this.host_headers[hh] = new Map();
-        }
+    for (let fc of config.frontend_connectors || []) {
+      for (let hh of fc.host_headers) {
+        routes[hh] = endpoints.get(fc.target);
+        this.host_headers[hh] = new Map();
       }
     }
     return routes;
-  };
+  }
+
+  generateEndpointsMap(backend_connectors = []) {
+    let endpoints = new Map();
+    let prefix = process.platform === 'win32' ? '//./pipe/' : '/tmp/';
+    for (let bc of backend_connectors) {
+      if (bc.endpoints.ipc) {
+        bc.endpoints.ipc = prefix + bc.endpoints.ipc;
+      }
+      endpoints.set(bc.name, bc.endpoints);
+    }
+    return endpoints;
+  }
 
   httpResponse(nr) {
     let reason_phrase = this.status_codes.get(nr);
