@@ -2,16 +2,25 @@
 'use strict';
 
 /**
-    Wait for v8 to implement es6 imports:
-    import net from 'net';
-    import sni from 'sni';
+ * Imports
+ * ...wait for v8 to implement es6 style
+ * import net from 'net';
+ * import sni from 'sni';
 */
-
 const net = require('net');
 const sni = require('sni');
 
+/**
+ * Creates a new upstream proxy instance.
+ * @class
+ */
 class UpstreamProxy {
 
+  /**
+    * @constructs UpstreamProxy server
+    * @param {object} config sets frontend and backend connectors for calculating the routes
+    * @return {object}
+    */
   constructor(config) {
 
     this.config = config;
@@ -31,9 +40,9 @@ class UpstreamProxy {
       [503, 'Service Unavailable']
     ]);
 
-    this.routes = this.generateRoutes(config);
+    this.routes = this._generateRoutesMap(config);
 
-    let server = net.createServer((socket) => this.handleConnection(socket));
+    let server = net.createServer((socket) => this._handleConnection(socket));
     server.start = () => this.start();
     server.stop = () => this.stop();
     server.getConfig = () => this.getConfig();
@@ -45,9 +54,13 @@ class UpstreamProxy {
     return server;
   }
 
-  handleConnection(socket) {
+  /**
+   * Handles connections from frontend
+   * @param {object} socket
+   */
+  _handleConnection(socket) {
     if (!this.active) {
-      return socket.end(this.httpResponse(503));
+      return socket.end(this._httpResponse(503));
     }
 
     socket.once('error', (err) => {
@@ -55,32 +68,37 @@ class UpstreamProxy {
       socket.end();
     });
 
-    socket.once('data', (data) => this.handleData(socket, data));
+    socket.once('data', (data) => this._handleData(socket, data));
   }
 
-  handleData(socket, data) {
+  /**
+   * Handles data from connection handler
+   * @param {object} socket
+   * @param {buffer} data
+   */
+  _handleData(socket, data) {
     if (data instanceof Buffer === false || data.length < 1) {
-      return socket.end(this.httpResponse(400));
+      return socket.end(this._httpResponse(400));
     }
 
-    const host_header = this.getHostHeader(data);
-    const route = this.routes[host_header];
+    const host_header = this._getHostHeader(data);
+    const route = this.routes.get(host_header);
 
     if (!route) {
-      return socket.end(this.httpResponse(404));
+      return socket.end(this._httpResponse(404));
     }
 
     let backend = new net.Socket();
 
     backend.once('error', (err) => {
-      socket.end(this.httpResponse(503));
+      socket.end(this._httpResponse(503));
       backend.destroy();
     });
 
     backend.on('connect', () => {
-      this.addConnection(socket, host_header);
-      socket.on('error', () => { this.removeConnection(socket, backend); });
-      backend.on('close', () => { this.removeConnection(socket, backend); });
+      this._addConnection(socket, host_header);
+      socket.on('error', () => { this._removeConnection(socket, backend); });
+      backend.on('close', () => { this._removeConnection(socket, backend); });
       backend.write(data);
       socket.pipe(backend).pipe(socket);
     });
@@ -90,13 +108,18 @@ class UpstreamProxy {
     } else if (route.tcp) {
       backend.connect(route.tcp);
     } else {
-      return socket.end(this.httpResponse(502));
+      return socket.end(this._httpResponse(502));
     }
   }
 
-  getHostHeader(data) {
+  /**
+   * Extracts hostname from buffer
+   * @param {buffer} data
+   * @return {string}
+   */
+  _getHostHeader(data) {
     if (data[0] === 22) { //secure
-      return this.routes[sni(data)];
+      return this.routes.get(sni(data));
     } else {
       let result = data.toString('utf8').match(/^(H|h)ost: ([^ :\r\n]+)/im);
       if (result) {
@@ -105,7 +128,12 @@ class UpstreamProxy {
     }
   }
 
-  addConnection(socket, host_header) {
+  /**
+   * Adds socket to internal frontend connection tracking
+   * @param {object} socket
+   * @param {string} host_header
+   */
+  _addConnection(socket, host_header) {
     this.id++;
     socket[this.symId] = this.id;
     socket[this.symHostHeader] = host_header;
@@ -114,7 +142,12 @@ class UpstreamProxy {
     //console.log('Added: ' + socket[this.symId] + '@' + socket[this.symHostHeader]);
   }
 
-  removeConnection(socket, backend) {
+  /**
+   * Removes socket from internal frontend connection tracking
+   * @param {object} socket
+   * @param {object} backend
+   */
+  _removeConnection(socket, backend) {
     //if (this.sockets[socket[this.symId]]) {
     //console.log('Removed: ' + socket[this.symId] + '@' + socket[this.symHostHeader]);
     this.host_headers[socket[this.symHostHeader]].delete(socket[this.symId]);
@@ -127,19 +160,29 @@ class UpstreamProxy {
     //}
   }
 
-  generateRoutes(config) {
-    let endpoints = this.generateEndpointsMap(config.backend_connectors);
-    let routes = {};
+  /**
+   * Generates routes map
+   * @param {object} config
+   * @return {map}
+   */
+  _generateRoutesMap(config) {
+    let endpoints = this._generateEndpointsMap(config.backend_connectors);
+    let routes = new Map();
     for (let fc of config.frontend_connectors || []) {
       for (let hh of fc.host_headers) {
-        routes[hh] = endpoints.get(fc.target);
+        routes.set(hh, endpoints.get(fc.target));
         this.host_headers[hh] = new Map();
       }
     }
     return routes;
   }
 
-  generateEndpointsMap(backend_connectors = []) {
+  /**
+   * Generates endpoints map
+   * @param {array} backend_connectors
+   * @return {map}
+   */
+  _generateEndpointsMap(backend_connectors = []) {
     let endpoints = new Map();
     let prefix = process.platform === 'win32' ? '//./pipe/' : '/tmp/';
     for (let bc of backend_connectors) {
@@ -151,7 +194,12 @@ class UpstreamProxy {
     return endpoints;
   }
 
-  httpResponse(nr) {
+  /**
+   * Generates client response
+   * @param {number} nr
+   * @return {string}
+   */
+  _httpResponse(nr) {
     let reason_phrase = this.status_codes.get(nr);
     if (!reason_phrase) {
       return 'HTTP/1.1 500 Internal Server Error\r\n\r\n';
@@ -159,44 +207,74 @@ class UpstreamProxy {
     return 'HTTP/1.1 ' + nr + ' ' + reason_phrase + '\r\n\r\n';
   }
 
+  /**
+   * Returns current configuration
+   * @return {object}
+   */
   getConfig() {
     return this.config;
   }
 
+  /**
+   * Sets new configuration
+   * @param {object} config
+   */
   setConfig(config) {
     this.config = config;
-    this.routes = this.generateRoutes(config);
+    this.routes = this._generateRoutesMap(config);
     return 'OK';
   }
 
+  /**
+   * Returns current routes
+   * @return {map}
+   */
   getRoutes() {
     return this.routes;
   }
 
+  /**
+   * Starts the service
+   * @return {string}
+   */
   start() {
     this.active = true;
     return 'OK';
   };
 
+  /**
+   * Stops the service
+   * @return {string}
+   */
   stop() {
     this.active = false;
     return 'OK';
   };
 
-  closeFrontendConnections(host_header) {
-    //return nr of closed connections
+  /**
+   * Closes frontend connections for a hostname
+   * @param {string} hostname
+   * @return {number}
+   */
+  closeFrontendConnections(hostname) {
+    //return nr_of_closed_connections;
     return 'Not Yet Implemented';
   }
 
+  /**
+   * Closes all frontend connections
+   * @return {number}
+   */
   closeAllFrontendConnections() {
-    //return nr of closed connections
+    //return nr_of_closed_connections;
     return 'Not Yet Implemented';
   }
 
 }
 
 /**
-    Wait for v8 to implement es6 exports:
-    export default UpstreamProxy;
+ * Export
+ * ...wait for v8 to implement es6 style:
+ * export default UpstreamProxy;
 */
 module.exports = UpstreamProxy;
