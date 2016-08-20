@@ -4,7 +4,9 @@
   "description": "Upstream Proxy",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d docs",
+    "jsdoc-win": ".\\node_modules\\.bin\\jsdoc ./index.js -d docs"
   },
   "repository": {
     "type": "git",
@@ -29,5 +31,8 @@
   "homepage": "https://github.com/nodexo/upstream-proxy#readme",
   "dependencies": {
     "sni": "^1.0.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.4.0"
   }
 }
