@@ -1,6 +1,6 @@
 {
   "name": "upstream-proxy",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Routes incoming requests - based on their host headers - to node.js apps or any other configured service.",
   "main": "index.js",
   "scripts": {
