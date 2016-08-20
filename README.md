@@ -12,7 +12,7 @@ It supports all kinds of traffic like
 
 Incoming requests may come from nginx upstream any other service that is able to forward via IPC socket or TCP port.
 If you know what you are doing, you can also expose upstream proxy directly to the internet. 
-See more in the upcoming ['/examples'-section](https://github.com/nodexo/upstream-proxy/examples/).
+See more in the upcoming ['/examples'-section](https://github.com/nodexo/upstream-proxy/tree/master/examples).
 
 ## Installation
 ```shell
