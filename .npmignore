@@ -1,1 +1,6 @@
-npm-debug.log
+
+doc
+test
+
+*.log
+_*
