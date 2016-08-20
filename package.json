@@ -1,12 +1,12 @@
 {
   "name": "upstream-proxy",
   "version": "0.1.6",
-  "description": "Upstream Proxy",
+  "description": "Routes incoming requests - based on their host headers - to node.js apps or any other configured service.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d docs",
-    "jsdoc-win": ".\\node_modules\\.bin\\jsdoc ./index.js -d docs"
+    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d doc",
+    "jsdoc-win": ".\\node_modules\\.bin\\jsdoc ./index.js -d doc"
   },
   "repository": {
     "type": "git",
