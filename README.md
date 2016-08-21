@@ -2,7 +2,7 @@
 Upstream Proxy
 ==============
 
-Virtual host your apps: Upstream Proxy routes incoming requests - based on their host header - to (node.js) apps in the backend.
+Virtual host your apps: Upstream Proxy routes incoming requests - based on their host header - to Node.js apps in the backend.
 
 ### It works with all kinds of web traffic...
 
