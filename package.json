@@ -17,13 +17,16 @@
     "router",
     "dispatcher",
     "nginx",
+    "apache",
     "adapter",
     "connector",
     "http",
     "https",
+    "tls",
     "http/2",
     "websocket",
-    "server-sent events"
+    "server-sent events",
+    "sse"
   ],
   "author": "Michael Kortstiege",
   "license": "MIT",
