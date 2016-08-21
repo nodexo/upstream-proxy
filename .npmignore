@@ -1,6 +1,9 @@
 
 doc
 test
+examples
 
-*.log
+.editorconfig
+
 _*
+*.log

@@ -16,8 +16,10 @@ class UpstreamProxy {
 
   /**
     * @constructs UpstreamProxy server
-    * @param {object} config sets frontend and backend connectors for calculating the routes
-    * @return {object}
+    * @param {Object} config - Sets data for calculating the routes.
+    * @param {Array} config.frontend_connectors - Describes frontend connectors.
+    * @param {Array} config.backend_connectors - Describes backend connectors.
+    * @return {Object}
     */
   constructor(config) {
 
@@ -54,7 +56,7 @@ class UpstreamProxy {
 
   /**
    * Handles connections from frontend
-   * @param {object} socket
+   * @param {Object} socket
    */
   _handleConnection(socket) {
     if (!this.active) {
@@ -71,8 +73,8 @@ class UpstreamProxy {
 
   /**
    * Handles data from connection handler
-   * @param {object} socket
-   * @param {buffer} data
+   * @param {Object} socket
+   * @param {Buffer} data
    */
   _handleData(socket, data) {
     if (data instanceof Buffer === false || data.length < 1) {
@@ -118,7 +120,7 @@ class UpstreamProxy {
 
   /**
    * Extracts hostname from buffer
-   * @param {buffer} data
+   * @param {Buffer} data
    * @return {string}
    */
   _getHostHeader(data) {
@@ -156,7 +158,7 @@ class UpstreamProxy {
 
   /**
    * Adds socket to internal frontend connection tracking
-   * @param {object} socket
+   * @param {Object} socket
    * @param {string} host_header
    */
   _addConnection(socket, host_header) {
@@ -170,8 +172,8 @@ class UpstreamProxy {
 
   /**
    * Removes socket from internal frontend connection tracking
-   * @param {object} socket
-   * @param {object} backend
+   * @param {Object} socket
+   * @param {Object} backend
    */
   _removeConnection(socket, backend) {
     //if (this.sockets[socket[this.symId]]) {
@@ -188,8 +190,8 @@ class UpstreamProxy {
 
   /**
    * Generates routes map
-   * @param {object} config
-   * @return {map}
+   * @param {Object} config
+   * @return {Map}
    */
   _generateRoutesMap(config) {
     let endpoints = this._generateEndpointsMap(config.backend_connectors);
@@ -205,8 +207,8 @@ class UpstreamProxy {
 
   /**
    * Generates endpoints map
-   * @param {array} backend_connectors
-   * @return {map}
+   * @param {Array} backend_connectors
+   * @return {Map}
    */
   _generateEndpointsMap(backend_connectors = []) {
     let endpoints = new Map();
@@ -222,7 +224,7 @@ class UpstreamProxy {
 
   /**
    * Closes frontend connections
-   * @param {array} list_of_ids
+   * @param {Array} list_of_ids
    * @return {number}
    */
   _closeFrontendConnections(list_of_ids) {
@@ -254,15 +256,17 @@ class UpstreamProxy {
 
   /**
    * Returns current configuration
-   * @return {object}
+   * @return {Object}
    */
   getConfig() {
     return this.config;
   }
 
   /**
-   * Sets new configuration
-   * @param {object} config
+   * Overwrites current configuration
+   * @param {Object} config - Sets data for calculating the routes.
+   * @param {Array} config.frontend_connectors - Describes frontend connectors.
+   * @param {Array} config.backend_connectors - Describes backend connectors.
    */
   setConfig(config) {
     try {
@@ -276,7 +280,7 @@ class UpstreamProxy {
 
   /**
    * Returns current routes
-   * @return {map}
+   * @return {Map}
    */
   getRoutes() {
     return this.routes;
