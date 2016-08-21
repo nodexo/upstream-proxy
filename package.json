@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d doc",
-    "jsdoc-win": ".\\node_modules\\.bin\\jsdoc ./index.js -d doc"
+    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d doc"
   },
   "repository": {
     "type": "git",

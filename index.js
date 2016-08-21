@@ -167,7 +167,6 @@ class UpstreamProxy {
     socket[this.symHostHeader] = host_header;
     this.host_headers[host_header].set(this.id, true);
     this.sockets.set(this.id, socket);
-    //console.log('Added: ' + socket[this.symId] + '@' + socket[this.symHostHeader]);
   }
 
   /**
@@ -176,16 +175,11 @@ class UpstreamProxy {
    * @param {Object} backend
    */
   _removeConnection(socket, backend) {
-    //if (this.sockets[socket[this.symId]]) {
-    //console.log('Removed: ' + socket[this.symId] + '@' + socket[this.symHostHeader]);
     this.host_headers[socket[this.symHostHeader]].delete(socket[this.symId]);
     this.sockets.delete(socket[this.symId]);
     socket.end();
     socket.unref();
-    //}
-    //if (backend) {
     backend.end();
-    //}
   }
 
   /**
@@ -235,7 +229,7 @@ class UpstreamProxy {
         this.sockets.delete(id);
         i++;
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }  
     }
     return i;
@@ -287,7 +281,7 @@ class UpstreamProxy {
   }
 
   /**
-   * Starts the service
+   * Starts routing
    * @return {string}
    */
   start() {
@@ -296,7 +290,7 @@ class UpstreamProxy {
   }
 
   /**
-   * Stops the service
+   * Stops routing
    * @return {string}
    */
   stop() {
@@ -313,7 +307,6 @@ class UpstreamProxy {
     try {
       return this._closeFrontendConnections( Array.from( this.host_headers[host].keys() ) );
     } catch (e) {
-      console.log(e);
       return 0;
     }
   }
