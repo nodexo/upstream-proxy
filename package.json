@@ -1,6 +1,6 @@
 {
   "name": "upstream-proxy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Virtual host your apps: Upstream Proxy routes incoming requests - based on their host header - to (node.js) apps in the backend.",
   "main": "index.js",
   "scripts": {
