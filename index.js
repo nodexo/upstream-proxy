@@ -143,6 +143,11 @@ class UpstreamProxy {
     }
   }
 
+  /**
+   * Extracts SNI hostname
+   * @param {Buffer} data
+   * @return {string}
+   */
   _parseSNI(data) {
     let currPos = 43;
     currPos += 1 + data[currPos];ites
