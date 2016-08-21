@@ -5,10 +5,8 @@
  * Imports
  * ...wait for v8 to implement es6 style
  * import net from 'net';
- * import sni from 'sni';
 */
 const net = require('net');
-const sni = require('sni');
 
 /**
  * Creates a new upstream proxy instance.
@@ -125,13 +123,35 @@ class UpstreamProxy {
    */
   _getHostHeader(data) {
     if (data[0] === 22) { //secure
-      return this.routes.get(sni(data));
+      return this.routes.get(parseSNI(data));
     } else {
       let result = data.toString('utf8').match(/^(H|h)ost: ([^ :\r\n]+)/im);
       if (result) {
         return result[2];
       }
     }
+  }
+
+  _parseSNI(data) {
+    let currPos = 43;
+    currPos += 1 + data[currPos];ites
+    currPos += 2 + data.readInt16BE(currPos);
+    currPos += 1 + data[currPos];
+    currPos += 2;
+    while (currPos < data.length) {
+        if (data.readInt16BE(currPos) === 0) {
+            let sniLen = data.readInt16BE(currPos + 2);
+            currPos += 4;
+            if (data[currPos] != 0) {
+                return null;
+            }
+            currPos += 5;
+            return data.toString('utf8', currPos, currPos + sniLen - 5);
+        } else {
+            currPos += 4 + data.readInt16BE(currPos + 2);
+        }
+    }
+    return null;
   }
 
   /**
