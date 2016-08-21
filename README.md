@@ -72,7 +72,9 @@ The configuration is done by passing an object consisting of two arrays:
 ```
 
 ...
+
 ...
+
 ...
 
 **More is coming soon - I really work hard on it...**
@@ -84,19 +86,18 @@ Further Information
 
 ### Serving the web
 
-In a classic [NGINX](https://www.nginx.com/resources/wiki/) or [Apache](https://httpd.apache.org/) web server configuration, you would use [virtual hosting](https://en.wikipedia.org/wiki/Virtual_Hosting) to host multiple apps/sites on a single IP address. But this is complicated and troublesome to configure and
-to automate.
+In a classic [NGINX](https://www.nginx.com/resources/wiki/) or [Apache](https://httpd.apache.org/) web server configuration you would use [virtual hosting](https://en.wikipedia.org/wiki/Virtual_Hosting) to host multiple apps/sites on a single IP address. But this is complicated and troublesome to configure/automate.
 
 Proxying requests through Upstream Proxy to multiple Node.js processes is my favorite route to go, because it allows me to...
-* write apps that are simple to test and develop because they're stand alone. All they need to know for proper operation is the appropriate endpoint for listening.
-* do hassle-free on-the-fly configuration of routes
-* apply monitoring and clustering via process manager (e.g. [PM2](http://pm2.keymetrics.io/)) - and not by the web server itself
-* reload or restart single apps
+* write apps that are simple to develop and test - because they're stand alone. All they need to know for proper operation is an endpoint for listening.
+* do hassle-free configuration of routes
+* apply monitoring and clustering to my apps via process manager (e.g. [PM2](http://pm2.keymetrics.io/)) - avoid using a web server for it!
+* intentionally reload or restart single apps
 
 Upstream Proxy is purpose built: It takes the place of a regular web server when you don't need it for anything else except proxying requests.
-When you want to plug it into an NGINX upstream otherwise and let it route the requests: you are fine - the configuration is much simpler and you get **Javascript truly all the way down**.
+If you want to plug it into an NGINX upstream for routing requests you are fine too - the configuration is much simpler and you get **Javascript truly all the way down**.
 
-FYI, there's no reason you can't use Upstream Proxy as a gateway to non-Node.js apps or services.
+FYI: There is no reason you can't use Upstream Proxy as a gateway to non-Node.js apps or services.
 
 
 
