@@ -48,8 +48,8 @@ class UpstreamProxy {
     server.getConfig = () => this.getConfig();
     server.setConfig = (config) => this.setConfig(config);
     server.getRoutes = () => this.getRoutes();
-    server.closeFrontendConnections = (host_header) => this.closeFrontendConnections();
-    server.closeAllFrontendConnections = () => this.closeAllFrontendConnections();
+    server.disconnectClients = (host) => this.disconnectClients(host);
+    server.disconnectAllClients = () => this.disconnectAllClients();
 
     return server;
   }
@@ -82,17 +82,23 @@ class UpstreamProxy {
     }
 
     const host_header = this._getHostHeader(data);
-    const route = this.routes.get(host_header);
-
-    if (!route) {
+    let route;
+    try {
+      route = this.routes.get(host_header);
+    }
+    catch (e) {
       return socket.end(this._httpResponse(404));
     }
 
     let backend = new net.Socket();
 
     backend.once('error', (err) => {
-      socket.end(this._httpResponse(503));
       backend.destroy();
+      if (typeof this[route.cb] === 'function') {
+        this[route.cb](socket, host_header);
+      } else {
+        socket.end(this._httpResponse(503));
+      }
     });
 
     backend.on('connect', () => {
@@ -195,6 +201,25 @@ class UpstreamProxy {
   }
 
   /**
+   * Closes frontend connections
+   * @param {array} list_of_ids
+   * @return {number}
+   */
+  _closeFrontendConnections(list_of_ids) {
+    let i = 0;
+    for (let id of list_of_ids) {
+      try {
+        this.sockets.get(id).end();
+        this.sockets.delete(id);
+        i++;
+      } catch (e) {
+        console.log(e);
+      }  
+    }
+    return i;
+  }
+
+  /**
    * Generates client response
    * @param {number} nr
    * @return {string}
@@ -220,9 +245,13 @@ class UpstreamProxy {
    * @param {object} config
    */
   setConfig(config) {
-    this.config = config;
-    this.routes = this._generateRoutesMap(config);
-    return 'OK';
+    try {
+      this.routes = this._generateRoutesMap(config);
+      this.config = config;
+      return 'OK';
+    } catch (e) {
+      return 'ERROR: ' + e.message;
+    }
   }
 
   /**
@@ -240,7 +269,7 @@ class UpstreamProxy {
   start() {
     this.active = true;
     return 'OK';
-  };
+  }
 
   /**
    * Stops the service
@@ -249,25 +278,32 @@ class UpstreamProxy {
   stop() {
     this.active = false;
     return 'OK';
-  };
-
-  /**
-   * Closes frontend connections for a hostname
-   * @param {string} hostname
-   * @return {number}
-   */
-  closeFrontendConnections(hostname) {
-    //return nr_of_closed_connections;
-    return 'Not Yet Implemented';
   }
 
   /**
-   * Closes all frontend connections
+   * Disconnect all clients for a host(name)
+   * @param {string} host
    * @return {number}
    */
-  closeAllFrontendConnections() {
-    //return nr_of_closed_connections;
-    return 'Not Yet Implemented';
+  disconnectClients(host) {
+    try {
+      return this._closeFrontendConnections( Array.from( this.host_headers[host].keys() ) );
+    } catch (e) {
+      console.log(e);
+      return 0;
+    }
+  }
+
+  /**
+   * Disconnect all clients
+   * @return {number}
+   */
+  disconnectAllClients() {
+    try {
+      return this._closeFrontendConnections( Array.from( this.sockets.keys() ) );
+    } catch (e) {
+      return 0;
+    }
   }
 
 }
