@@ -4,18 +4,21 @@ Upstream Proxy
 
 Virtual host your apps: Upstream Proxy routes incoming requests - based on their host header - to (node.js) apps in the backend.
 
-**It works with all kinds of traffic...**
+### It works with all kinds of traffic...
+
 * HTTP
 * TLS (HTTPS)
 * HTTP/2
 * WebSocket
 * Server-Sent Events
 
-**...and is optimized for**
+### ...and is optimized for
+
 * ease of use *(by providing a clean API)*
 * speed *(by keeping things lean and simple :)*
 
-Plug it to the nginx upstream (via TCP port or IPC socket), connect it to other services or expose it directly to the internet (e.g. port 80 and 443). 
+Plug it to an nginx upstream (via TCP port or IPC socket), connect it to any other service - or expose it directly to the internet (port 80 and 443). 
+
 In the future there will be [examples](https://github.com/nodexo/upstream-proxy/tree/master/examples) covering most use cases.
 
 
@@ -70,8 +73,10 @@ The configuration is done by passing an object consisting of two arrays:
 
 
 **More is coming soon - I really work hard on it...**
-
-
+  
+  
+  
+  
 
 
 Further Information
@@ -97,6 +102,6 @@ The same applies to [Server-Sent Events](https://en.wikipedia.org/wiki/Server-se
 Benchmarks
 ----------
 
-There are none published yet (internally I have done a lot of testing :).
+There are none published yet (internally I have done a lot of testing...).
 
 If you create one and want to share, I would be happy to include some.
