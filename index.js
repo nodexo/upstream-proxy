@@ -19,11 +19,10 @@ class UpstreamProxy {
     * @param {Object} config - Sets data for calculating the routes.
     * @param {Array} config.frontend_connectors - Describes frontend connectors.
     * @param {Array} config.backend_connectors - Describes backend connectors.
+    * @param {Object} callbacks - Sets callbacks for external error handling.
     * @return {Object}
     */
-  constructor(config) {
-
-    this.config = config;
+  constructor(config = {}, callbacks = {}) {
 
     this.active = true;
     this.id = 0;
@@ -40,7 +39,16 @@ class UpstreamProxy {
       [503, 'Service Unavailable']
     ]);
 
-    this.routes = this._generateRoutesMap(config);
+    try {
+      this.config = this._generateConfig(config);
+      this.routes = this._generateRoutesMap(this.config); 
+    } 
+    catch(e) {};
+
+    try {
+      this.callbacks = callbacks;
+    } 
+    catch(e) {};
 
     let server = net.createServer((socket) => this._handleConnection(socket));
     server.start = () => this.start();
@@ -94,10 +102,11 @@ class UpstreamProxy {
 
     backend.once('error', (err) => {
       backend.destroy();
-      if (typeof this[route.cb] === 'function') {
-        this[route.cb](socket, host_header);
+      const status = 503;
+      if (this.callbacks[status]) {
+        this.callbacks[status](socket, host_header);
       } else {
-        socket.end(this._httpResponse(503));
+        socket.end(this._httpResponse(status));
       }
     });
 
@@ -183,6 +192,23 @@ class UpstreamProxy {
   }
 
   /**
+   * Generates config object
+   * @param {Object} obj
+   * @return {Object}
+   */
+  _generateConfig(obj = {}) {
+    let config = {};
+    config.created = new Date().getTime();
+    if (obj.frontend_connectors) {
+      config.frontend_connectors = obj.frontend_connectors;
+    }
+    if (obj.backend_connectors) {
+      config.backend_connectors = obj.backend_connectors;
+    }
+    return config;
+  }
+
+  /**
    * Generates routes map
    * @param {Object} config
    * @return {Map}
@@ -262,10 +288,10 @@ class UpstreamProxy {
    * @param {Array} config.frontend_connectors - Describes frontend connectors.
    * @param {Array} config.backend_connectors - Describes backend connectors.
    */
-  setConfig(config) {
+  setConfig(config = {}) {
     try {
-      this.routes = this._generateRoutesMap(config);
-      this.config = config;
+      this.config = this._generateConfig(config);
+      this.routes = this._generateRoutesMap(this.config);
       return 'OK';
     } catch (e) {
       return 'ERROR: ' + e.message;
@@ -278,6 +304,27 @@ class UpstreamProxy {
    */
   getRoutes() {
     return this.routes;
+  }
+
+  /**
+   * Returns current callbacks
+   * @return {Object}
+   */
+  getCallbacks() {
+    return this.callbacks;
+  }
+
+  /**
+   * Overwrites current callbacks
+   * @param {Object} callbacks - Sets callbacks for external error handling.
+   */
+  setCallbacks(callbacks = {}) {
+    try {
+      this.callbacks = callbacks;
+      return 'OK';
+    } catch (e) {
+      return 'ERROR: ' + e.message;
+    }
   }
 
   /**
@@ -303,7 +350,7 @@ class UpstreamProxy {
    * @param {string} host
    * @return {number}
    */
-  disconnectClients(host) {
+  disconnectClients(host = '') {
     try {
       return this._closeFrontendConnections( Array.from( this.host_headers[host].keys() ) );
     } catch (e) {
