@@ -57,16 +57,16 @@ Basic example:
 
 API Methods
 ------------
-- [start](#start)
-- [stop](#stop)
-- [getStatus](#getStatus)
-- [setConfig](#setConfig)
-- [getConfig](#getConfig)
-- [getRoutes](#getRoutes)
-- [setCallbacks](#setCallbacks)
-- [getCallbacks](#getCallbacks)
-- [disconnectClients](#disconnectClients)
-- [disconnectAllClients](#disconnectAllClients)
+- [start()](#start)
+- [stop()](#stop)
+- [getStatus()](#getstatus)
+- [setConfig(obj)](#setconfig)
+- [getConfig()](#getconfig)
+- [getRoutes()](#getroutes)
+- [setCallbacks(obj)](#setcallbacks)
+- [getCallbacks()](#getcallbacks)
+- [disconnectClients(str)](#disconnectclients)
+- [disconnectAllClients()](#disconnectallclients)
 
 
 ### start()
