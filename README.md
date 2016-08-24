@@ -12,10 +12,17 @@ Virtual host your apps: Upstream Proxy routes incoming requests - based on their
 * WebSocket
 * Server-Sent Events
 
+###...for...
+
+* host/domain names
+* IP addresses *(e.g. 127.0.0.1)*
+* IPv6 addresses *(e.g. [::1])*
+
 ### ...and is optimized for
 
-* ease of use *(by providing a clean API)*
-* speed *(by keeping things lean and simple :)*
+* ease of use
+* robustness
+* speed
 
 Plug it to an NGINX upstream (via TCP port or IPC socket), connect it to any other service - or expose it directly to the internet (port 80 and 443). 
 
@@ -37,7 +44,7 @@ Basic example:
   let myConfig = {
     frontend_connectors: [
       {
-        host_headers: ['127.0.0.1', 'localhost'],
+        host_headers: [ 'localhost', '127.0.0.1', '[::1]' ],
         target: 'local-website'
       }
     ],
@@ -142,7 +149,7 @@ proxy.listen(3000).start();
 let myConfig = {
   "frontend_connectors": [
     {
-      "host_headers": [ "127.0.0.1", "localhost" ],
+      "host_headers": [ 'localhost', '127.0.0.1', '[::1]' ],
       "target": "local-website"
     }
   ],
@@ -178,8 +185,9 @@ console.log( JSON.stringify(liveConfig, null, 2) );
   "frontend_connectors": [
     {
       "host_headers": [
-        "127.0.0.1",
-        "localhost"
+        "localhost", 
+        "127.0.0.1", 
+        "[::1]"
       ],
       "target": "local-website"
     }
@@ -213,6 +221,15 @@ console.log( JSON.stringify([...liveRoutes], null, 2) );
 /*
 [
   [
+    "localhost",
+    {
+      "tcp": {
+        "host": "127.0.0.1",
+        "port": 3001
+      }
+    }
+  ],
+  [
     "127.0.0.1",
     {
       "tcp": {
@@ -222,7 +239,7 @@ console.log( JSON.stringify([...liveRoutes], null, 2) );
     }
   ],
   [
-    "localhost",
+    "[::1]",
     {
       "tcp": {
         "host": "127.0.0.1",

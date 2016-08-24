@@ -136,7 +136,7 @@ class UpstreamProxy {
     if (data[0] === 22) { //secure
       return this.routes.get(parseSNI(data));
     } else {
-      let result = data.toString('utf8').match(/^(H|h)ost: ([^ :\r\n]+)/im);
+      let result = data.toString('utf8').match(/^(H|h)ost: (\[[^\]]*\]|[^ \:\r\n]+)/im);
       if (result) {
         return result[2];
       }
