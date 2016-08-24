@@ -93,11 +93,8 @@ class UpstreamProxy {
     }
 
     const host_header = this._getHostHeader(data);
-    let route;
-    try {
-      route = this.routes.get(host_header);
-    }
-    catch (e) {
+    let route = this.routes.get(host_header);
+    if (!route) {
       return socket.end(this._httpResponse(404));
     }
 
