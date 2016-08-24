@@ -53,9 +53,12 @@ class UpstreamProxy {
     let server = net.createServer((socket) => this._handleConnection(socket));
     server.start = () => this.start();
     server.stop = () => this.stop();
+    server.getStatus = () => this.getStatus();
     server.getConfig = () => this.getConfig();
     server.setConfig = (config) => this.setConfig(config);
     server.getRoutes = () => this.getRoutes();
+    server.getCallbacks = () => this.getCallbacks();
+    server.setCallbacks = (callbacks) => this.setCallbacks(callbacks);
     server.disconnectClients = (host) => this.disconnectClients(host);
     server.disconnectAllClients = () => this.disconnectAllClients();
 
