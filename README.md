@@ -60,12 +60,12 @@ API Methods
 - [start()](#start)
 - [stop()](#stop)
 - [getStatus()](#getstatus)
-- [setConfig(obj)](#setconfig)
+- [setConfig(obj)](#setconfigobj)
 - [getConfig()](#getconfig)
 - [getRoutes()](#getroutes)
-- [setCallbacks(obj)](#setcallbacks)
+- [setCallbacks(obj)](#setcallbacksobj)
 - [getCallbacks()](#getcallbacks)
-- [disconnectClients(str)](#disconnectclients)
+- [disconnectClients(str)](#disconnectclientsstr)
 - [disconnectAllClients()](#disconnectallclients)
 
 
