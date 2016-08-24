@@ -73,16 +73,34 @@ API Methods
 
 Starts the proxy.
 
-Once created the proxy listens for connections immediately.   
-If nothing is configured yet, each request returns a "503 Service Unavailable" (see [getStatus](#getstatus)).
+Example:
+
+```js
+let result = proxy.start();
+
+console.log( result );
+// OK
+```
+
+Once created, the proxy listens for connections immediately.   
+If nothing is configured, each request returns a "503 Service Unavailable" (see [getStatus()](#getstatus)).
 
 
 ### stop()
 
 Stops the proxy.
 
+Example:
+
+```js
+let result = proxy.stop();
+
+console.log( result );
+// OK
+```
+
 New requests will be answered with "503 Service Unavailable".  
-Existing connections are NOT affected, to disconnect clients use [disconnectAllClients](#disconnectallclients).
+Existing connections are NOT affected, to disconnect the clients use [disconnectAllClients()](#disconnectallclients).
 
 
 ### getStatus()
@@ -93,13 +111,12 @@ Possible return values are:
 - active => proxy routes incoming requests
 - passive => each request returns a "503 Service Unavailable"
 
-
 Example:
 
 ```js
 let proxyStatus = proxy.getStatus();
 
-console.log(proxyStatus);
+console.log( proxyStatus );
 // active
 ```
 
@@ -112,7 +129,7 @@ Sets the configuration and generates a routing map.
 - Uses only "frontend_connectors" and "backend_connectors" properties of the passed object
 - Generates property "created" = current unix timestamp
 
-Existing connections are not affected: To disconnect clients after a configuration change use [disconnectClients](#disconnectclientsstr).
+Existing connections are not affected: To disconnect clients after a configuration change use [disconnectClients()](#disconnectclientsstr).
 
 Example:
 
@@ -138,7 +155,9 @@ let myConfig = {
   ]
 }
 
-proxy = setConfig(myConfig);
+let result = proxy.setConfig(myConfig);
+
+console.log( result );
 // OK
 ```
 
@@ -181,7 +200,7 @@ console.log( JSON.stringify(liveConfig, null, 2) );
 
 ### getRoutes()
 
-Gets current routing map.
+Gets the current routing map.
 
 Example:
 
@@ -229,16 +248,18 @@ let myCallbacks = {
   503: myError503
 }
 
-proxy = setCallbacks(myCallbacks);
+let result = proxy.setCallbacks(myCallbacks);
+
+console.log( result );
 // OK
 ```
 
 Here, each request that normally would be closed by the proxy with a HTTP status 503 is handed back 
-to "myError503" - passing the socket object and the host_header string. Now it's your responsibility 
-to handle the request until the end, for example:
+to "myError503" - passing back the socket object and the host name string. Now it's your responsibility 
+to handle the request, for example:
 
 ```js
-socket.end("HTTP/1.1 200 OK\r\n\r\nI'm on vacation at the moment - please try again later...");
+socket.end("HTTP/1.1 503 Service Unavailable\r\n\r\n<h1>I'm on vacation at the moment - please try again later...</h1>");
 ```
 
 ### getCallbacks()
@@ -265,7 +286,9 @@ Disconnects clients for the specified host name, returns the number of terminate
 Example:
 
 ```js
-proxy = disconnectClients("localhost");
+let nrOfDisconnectedClients = proxy.disconnectClients("localhost");
+
+console.log( nrOfDisconnectedClients );
 // 7
 ```
 
@@ -279,7 +302,9 @@ Disconnects all clients, returns the number of terminated connections.
 Example:
 
 ```js
-proxy = disconnectAllClients();
+let nrOfDisconnectedClients = proxy.disconnectAllClients();
+
+console.log( nrOfDisconnectedClients );
 // 102
 ```
 
