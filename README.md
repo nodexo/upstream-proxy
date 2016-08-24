@@ -51,7 +51,8 @@ Basic example:
     ]
   }
 
-  let proxy = new upstreamProxy(myConfig).listen(3000).start();
+  let proxy = new upstreamProxy(myConfig);
+  proxy.listen(3000).start();
 ```
 
 
@@ -135,7 +136,8 @@ Example:
 ```js
 const upstreamProxy = require('upstream-proxy');
 
-let proxy = new upstreamProxy().listen(3000).start();
+let proxy = new upstreamProxy();
+proxy.listen(3000).start();
 
 let myConfig = {
   "frontend_connectors": [
