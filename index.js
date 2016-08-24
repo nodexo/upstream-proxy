@@ -203,7 +203,7 @@ class UpstreamProxy {
    */
   _generateConfig(obj = {}) {
     let config = {};
-    config.created = new Date().getTime();
+    config.created_at = new Date().getTime();
     if (obj.frontend_connectors) {
       config.frontend_connectors = obj.frontend_connectors;
     }

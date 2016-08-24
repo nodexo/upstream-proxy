@@ -126,17 +126,16 @@ console.log( proxyStatus );
 Sets the configuration and generates a routing map.
 
 - Complete overwrite of current configuration and routes
-- Uses only "frontend_connectors" and "backend_connectors" properties of the passed object
-- Generates property "created" = current unix timestamp
+- (Time)stamps the configuration with a new property "created_at" in ms
 
-Existing connections are not affected: To disconnect clients after a configuration change use [disconnectClients()](#disconnectclientsstr).
+Existing connections are not affected.
 
 Example:
 
 ```js
 const upstreamProxy = require('upstream-proxy');
 
-let proxy = new upstreamProxy().listen(3000);
+let proxy = new upstreamProxy().listen(3000).start();
 
 let myConfig = {
   "frontend_connectors": [
@@ -173,7 +172,7 @@ let liveConfig = proxy.getConfig();
 console.log( JSON.stringify(liveConfig, null, 2) );
 /*
 {
-  "created": 1472018433024,
+  "created_at": 1472060672024,
   "frontend_connectors": [
     {
       "host_headers": [
@@ -259,7 +258,9 @@ to "myError503" - passing back the socket object and the host name string. Now i
 to handle the request, for example:
 
 ```js
-socket.end("HTTP/1.1 503 Service Unavailable\r\n\r\n<h1>I'm on vacation at the moment - please try again later...</h1>");
+let htmlPage = "<h1>I'm on vacation at the moment - please try again later...</h1>";
+
+socket.end('HTTP/1.1 503 Service Unavailable\r\n\r\n' + htmlPage);
 ```
 
 ### getCallbacks()
