@@ -24,7 +24,7 @@ class UpstreamProxy {
     */
   constructor(config = {}, callbacks = {}) {
 
-    this.active = true;
+    this.active = false;
     this.id = 0;
     this.symId = Symbol('id');
     this.symHostHeader = Symbol('host_header');
@@ -348,6 +348,17 @@ class UpstreamProxy {
   stop() {
     this.active = false;
     return 'OK';
+  }
+
+  /**
+   * Get status
+   * @return {string}
+   */
+  getStatus() {
+    if (this.active === true) {
+      return 'active';
+    }
+    return 'passive';
   }
 
   /**

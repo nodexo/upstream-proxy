@@ -25,16 +25,16 @@ In the future there will be [examples](https://github.com/nodexo/upstream-proxy/
 Installation
 ------------
 
-    npm install upstream-proxy --save
+    npm install upstream-proxy
 
 
 Usage
 -----
-Example:
+Basic example:
 ```javascript
   const upstreamProxy = require('upstream-proxy');
 
-  let config = {
+  let myConfig = {
     frontend_connectors: [
       {
         host_headers: ['127.0.0.1', 'localhost'],
@@ -51,34 +51,226 @@ Example:
     ]
   }
 
-  let proxy = new upstreamProxy(config).listen(3000);
+  let proxy = new upstreamProxy(myConfig).listen(3000).start();
 ```
 
 
-API
----
+API Methods
+------------
+- [start](#start)
+- [stop](#stop)
+- [getStatus](#getStatus)
+- [setConfig](#setConfig)
+- [getConfig](#getConfig)
+- [getRoutes](#getRoutes)
+- [setCallbacks](#setCallbacks)
+- [getCallbacks](#getCallbacks)
+- [disconnectClients](#disconnectClients)
+- [disconnectAllClients](#disconnectAllClients)
 
-### Configuration
 
-The configuration is done by passing an object consisting of two arrays:
-* an array of objects describing the frontend connectors 
-* an array of objects describing the backend connectors
+### start()
 
-```javascript
-{
-  frontend_connectors: [],
-  backend_connectors:  []
+Starts the proxy.
+
+Once created the proxy listens for connections immediately.   
+If nothing is configured yet, each request returns a "503 Service Unavailable" (see [getStatus](#getStatus)).
+
+
+### stop()
+
+Stops the proxy.
+
+New requests will be answered with "503 Service Unavailable".  
+Existing connections are NOT affected, to disconnect clients use [disconnectAllClients](#disconnectAllClients).
+
+
+### getStatus()
+
+Gets current status.
+
+Possible return values
+- active: proxy routes incoming requests
+- passive: each request returns a "503 Service Unavailable"
+
+
+Example:
+
+```js
+let proxyStatus = proxy.getStatus();
+
+console.log(proxyStatus);
+// active
+```
+
+
+### setConfig(obj)
+
+Sets the configuration and generates the routing map.
+
+- Complete overwrite of current config and routes
+- Uses only "frontend_connectors" and "backend_connectors" properties of the passed object
+- Generates property "created" with the current unix timestamp
+
+Existing connections are not affected: To disconnect clients after a configuration change use [disconnectClients](#disconnectClients).
+
+Example:
+
+```js
+const upstreamProxy = require('upstream-proxy');
+
+let myConfig = {
+  "frontend_connectors": [
+    {
+      "host_headers": [ "127.0.0.1", "localhost" ],
+      "target": "local-website"
+    }
+  ],
+  "backend_connectors": [
+    {
+      "name": "local-website",
+      "endpoints": { 
+        "tcp": { "host": "127.0.0.1", "port": 3001 }
+      }
+    }
+  ]
 }
+
+let proxy = new upstreamProxy().listen(3000);
+
+proxy = setConfig(myConfig);
+// OK
 ```
 
-...
+### getConfig()
 
-...
+Gets the current configuration.
 
-...
+Example:
 
-**More is coming soon - I really work hard on it...**
+```js
+let liveConfig = proxy.getConfig();
 
+console.log( JSON.stringify(liveConfig, null, 2) );
+/*
+{
+  "created": 1472018433024,
+  "frontend_connectors": [
+    {
+      "host_headers": [
+        "127.0.0.1",
+        "localhost"
+      ],
+      "target": "local-website"
+    }
+  ],
+  "backend_connectors": [
+    {
+      "name": "local-website",
+      "endpoints": {
+        "tcp": {
+          "host": "127.0.0.1",
+          "port": 3001
+        }
+      }
+    }
+  ]
+}
+*/
+```
+
+### getRoutes()
+
+Gets current routes.
+
+Example:
+
+```js
+let liveRoutes = proxy.getRoutes();
+
+console.log( JSON.stringify([...liveRoutes], null, 2) );
+/*
+[
+  [
+    "127.0.0.1",
+    {
+      "tcp": {
+        "host": "127.0.0.1",
+        "port": 3001
+      }
+    }
+  ],
+  [
+    "localhost",
+    {
+      "tcp": {
+        "host": "127.0.0.1",
+        "port": 3001
+      }
+    }
+  ]
+]
+*/
+```
+
+### setCallbacks(obj)
+
+Sets callbacks (hooks) for individual error handling.
+
+Example:
+
+```js
+let error503 = (socket, host_header) => {
+  //...
+}
+
+let myCallbacks = {
+  503: error503
+}
+
+proxy = setCallbacks(myCallbacks);
+// OK
+```
+
+### getCallbacks()
+
+Gets current callbacks.
+
+Example:
+
+```js
+let liveCallbacks = proxy.getCallbacks();
+
+console.log( JSON.stringify(liveCallbacks, null, 2) );
+/*
+{
+  503: error503
+}
+*/
+```
+
+### disconnectClients(str)
+
+Disconnects clients for the specified host name, returns the number of terminated connections.  
+*Only affects the exact host name, "localhost" DOES NOT disconnect clients for "127.0.0.1"*
+
+Example:
+
+```js
+proxy = disconnectClients("localhost");
+// 7
+```
+
+### disconnectAllClients()
+
+Disconnects all clients, returns the number of terminated connections.
+
+Example:
+
+```js
+proxy = disconnectAllClients();
+// 102
+```
 
 
 Further Information
