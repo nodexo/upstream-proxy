@@ -12,7 +12,7 @@ Virtual host your apps: Upstream Proxy routes incoming requests - based on their
 * WebSocket
 * Server-Sent Events
 
-###...for...
+###...using...
 
 * host/domain names
 * IP addresses *(e.g. 127.0.0.1)*
@@ -184,11 +184,7 @@ console.log( JSON.stringify(liveConfig, null, 2) );
   "created_at": 1472060672024,
   "frontend_connectors": [
     {
-      "host_headers": [
-        "localhost", 
-        "127.0.0.1", 
-        "[::1]"
-      ],
+      "host_headers": [ "localhost",  "127.0.0.1",  "[::1]" ],
       "target": "local-website"
     }
   ],
@@ -196,10 +192,7 @@ console.log( JSON.stringify(liveConfig, null, 2) );
     {
       "name": "local-website",
       "endpoints": {
-        "tcp": {
-          "host": "127.0.0.1",
-          "port": 3001
-        }
+        "tcp": { "host": "127.0.0.1", "port": 3001 }
       }
     }
   ]
@@ -220,33 +213,9 @@ let liveRoutes = proxy.getRoutes();
 console.log( JSON.stringify([...liveRoutes], null, 2) ); 
 /*
 [
-  [
-    "localhost",
-    {
-      "tcp": {
-        "host": "127.0.0.1",
-        "port": 3001
-      }
-    }
-  ],
-  [
-    "127.0.0.1",
-    {
-      "tcp": {
-        "host": "127.0.0.1",
-        "port": 3001
-      }
-    }
-  ],
-  [
-    "[::1]",
-    {
-      "tcp": {
-        "host": "127.0.0.1",
-        "port": 3001
-      }
-    }
-  ]
+  [ "localhost", { "tcp": { "host": "127.0.0.1", "port": 3001 } } ],
+  [ "127.0.0.1", { "tcp": { "host": "127.0.0.1", "port": 3001 } } ],
+  [ "[::1]",     { "tcp": { "host": "127.0.0.1", "port": 3001 } } ]
 ]
 */
 ```
@@ -306,9 +275,9 @@ Disconnects clients for the specified host name, returns the number of terminate
 Example:
 
 ```js
-let nrOfDisconnectedClients = proxy.disconnectClients("localhost");
+let nr = proxy.disconnectClients("localhost");
 
-console.log( nrOfDisconnectedClients );
+console.log( nr );
 // 7
 ```
 
@@ -322,9 +291,9 @@ Disconnects all clients, returns the number of terminated connections.
 Example:
 
 ```js
-let nrOfDisconnectedClients = proxy.disconnectAllClients();
+let nr = proxy.disconnectAllClients();
 
-console.log( nrOfDisconnectedClients );
+console.log( nr );
 // 102
 ```
 
