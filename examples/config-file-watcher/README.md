@@ -1,5 +1,6 @@
 
-1. npm install
+(1) npm install
 
-2. Linux/OSX: npm start
-   Windows:   npm run winstart
+(2)
+- Linux/OSX: npm start
+- Windows: npm run winstart
