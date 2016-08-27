@@ -165,9 +165,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.82310616"
-     inkscape:cx="260.21396"
-     inkscape:cy="464.46568"
+     inkscape:zoom="1.1640479"
+     inkscape:cx="384.84382"
+     inkscape:cy="526.17603"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -194,12 +194,12 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;fill-opacity:0.7607143;stroke:#a6c95f;stroke-width:2.22621536;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#ffffff;fill-opacity:0.7607143;stroke:#a6c95f;stroke-width:2.05139923;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect2995-7-5"
-       width="301.28564"
-       height="323.88412"
-       x="256.00613"
-       y="534.06146" />
+       width="301.46048"
+       height="274.8551"
+       x="255.91872"
+       y="533.97406" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#72adce;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect2995-79"
@@ -264,7 +264,7 @@
          id="tspan4161"
          x="261.8299"
          y="362.52789"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:Lato;-inkscape-font-specification:Lato;fill:#333333">NGINX</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:Lato;-inkscape-font-specification:Lato;fill:#333333">Webserver (NGINX)</tspan></text>
     <rect
        style="fill:#b7d37d;fill-opacity:0.94117647;stroke:none"
        id="rect2995-7"
@@ -285,15 +285,15 @@
          y="563.64063"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:Lato;-inkscape-font-specification:Lato;fill:#333333;fill-opacity:1">USP (Upstream Proxy)</tspan></text>
     <rect
-       style="opacity:1;fill:#f3f3f3;fill-opacity:0.98431373;stroke:none;stroke-width:0.89090919;stroke-miterlimit:4;stroke-dasharray:none"
+       style="opacity:1;fill:#000000;fill-opacity:0;stroke:#bad583;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect4330"
        width="83.003204"
        height="73.611832"
-       x="242.81444"
-       y="933.33789" />
+       x="242.20699"
+       y="915.11426" />
     <g
        id="g12335"
-       transform="translate(138.47484,99.214667)"
+       transform="translate(137.86738,80.991015)"
        style="opacity:1;fill:#4d4d4d;fill-opacity:1">
       <text
          sodipodi:linespacing="125%"
@@ -331,15 +331,15 @@
            x="645.71429"
            y="414.50504" /></flowRegion><flowPara
          id="flowPara4373" /></flowRoot>    <rect
-       style="opacity:1;fill:#b7d37d;fill-opacity:0.94117647;stroke:none;stroke-width:0.89090919;stroke-miterlimit:4;stroke-dasharray:none"
+       style="opacity:1;fill:#fff7d7;fill-opacity:0.98431373;stroke:#b7d37d;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect4330-6"
        width="83.003204"
        height="73.611832"
-       x="374.12445"
-       y="930.16284" />
+       x="373.517"
+       y="911.93921" />
     <g
        id="g12335-7"
-       transform="translate(269.78487,96.039617)"
+       transform="translate(269.17741,77.815965)"
        style="fill:#333333;fill-opacity:1">
       <text
          sodipodi:linespacing="125%"
@@ -367,15 +367,15 @@
            sodipodi:role="line">app-2</tspan></text>
     </g>
     <rect
-       style="opacity:1;fill:#f3f3f3;fill-opacity:0.98431373;stroke:none;stroke-width:0.89090919;stroke-miterlimit:4;stroke-dasharray:none"
+       style="opacity:1;fill:#ffffff;fill-opacity:0.98431373;stroke:#bad583;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect4330-6-6"
        width="83.003204"
        height="73.611832"
-       x="499.54883"
-       y="931.02185" />
+       x="498.94138"
+       y="912.79822" />
     <g
        id="g12425"
-       transform="translate(130.14005,108.75667)"
+       transform="translate(129.53259,90.533018)"
        style="opacity:1;fill:#4d4d4d;fill-opacity:1">
       <text
          sodipodi:linespacing="125%"
@@ -480,57 +480,45 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="361.16141"
-       y="499.2258"
+       x="421.29639"
+       y="502.66208"
        id="text12850"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan12852"
-         x="361.16141"
-         y="499.2258"
+         x="421.29639"
+         y="502.66208"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato">3000<tspan
    style="font-size:11.25px"
    id="tspan12896">.sock</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="397.80667"
-       y="895.97534"
+       x="427.26672"
+       y="864.00659"
        id="text12850-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan12852-0"
-         x="397.80667"
-         y="895.97534"
+         x="427.26672"
+         y="864.00659"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato">3002<tspan
    style="font-size:11.25px"
    id="tspan12892">.sock</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="244.89198"
-       y="895.11609"
+       x="224.52589"
+       y="867.44269"
        id="text12850-2-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan12852-0-5"
-         x="244.89198"
-         y="895.11609"
+         x="224.52589"
+         y="867.44269"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato"><tspan
    style="font-size:11.25px"
    id="tspan12890">127.0.0.1:</tspan>3001</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="513.56952"
-       y="895.88525"
-       id="text12850-2-7"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan12852-0-7"
-         x="513.56952"
-         y="895.88525"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato">[connect]</tspan></text>
     <g
        id="g12499-0"
        transform="matrix(0,-0.04287958,0.04287958,0,325.12082,250.92768)"
@@ -803,7 +791,7 @@
          x="279.99841"
          y="599.18903"
          id="tspan4167"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:Lato;-inkscape-font-specification:Lato">    proxy.setConfig([</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:Lato;-inkscape-font-specification:Lato">    myConfig = [</tspan><tspan
          sodipodi:role="line"
          x="279.99841"
          y="613.25153"
@@ -858,87 +846,93 @@
          x="279.99841"
          y="753.87653"
          id="tspan4207"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:Lato;-inkscape-font-specification:Lato">    ]);</tspan></text>
-    <rect
-       style="opacity:1;fill:#fff6d5;fill-opacity:0.94117647;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect13368-7"
-       width="134.85503"
-       height="21.965199"
-       x="412.922"
-       y="828.41821"
-       rx="5"
-       ry="5" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="418.90048"
-       y="843.74628"
-       id="text4253-8-0"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="418.90048"
-         y="843.74628"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato;opacity:0.35;fill:#1a1a1a;fill-opacity:1"
-         id="tspan4328">www.my-app2.org</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:Lato;-inkscape-font-specification:Lato">    ];</tspan></text>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.35373771;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 549.29754,791.95434 -286.06984,0"
+       style="fill:#ececec;fill-rule:evenodd;stroke:#666666;stroke-width:0.35373771;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 549.905,771.30087 -286.06984,0"
        id="path13366-1"
        inkscape:connector-type="orthogonal"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="362.11984"
-       y="784.78943"
-       id="text4159-0-5"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4161-9-8"
-         x="362.11984"
-         y="784.78943"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:Lato;-inkscape-font-specification:Lato;fill:#333333;fill-opacity:1">Routes</tspan></text>
     <rect
-       style="opacity:1;fill:#f2f2f2;fill-opacity:0.94117647;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect13368-7-2"
-       width="113.69093"
-       height="21.965199"
-       x="268.465"
-       y="800.94525"
-       rx="5"
-       ry="5" />
+       style="opacity:1;fill:#f4f4f4;fill-opacity:0.98431373;stroke:none;stroke-width:0.34999999;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4384"
+       width="82.613892"
+       height="14.578921"
+       x="264.8504"
+       y="783.25964" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="274.59348"
-       y="816.52148"
+       x="268.51892"
+       y="793.43817"
        id="text4253"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4255"
-         x="274.59348"
-         y="816.52148"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato;fill:#333333;fill-opacity:1">www.app1.com</tspan></text>
+         x="268.51892"
+         y="793.43817"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:lato;-inkscape-font-specification:lato;fill:#333333;fill-opacity:1">www.app1.com</tspan></text>
     <rect
-       style="opacity:1;fill:#f2f2f2;fill-opacity:0.94117647;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect13368-7-2-8"
-       width="92.126266"
-       height="21.965199"
-       x="412.47501"
-       y="803.88568"
-       rx="5"
-       ry="5" />
+       style="opacity:1;fill:#f4f4f4;fill-opacity:0.98431373;stroke:none;stroke-width:0.34999999;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4384-7"
+       width="74.10952"
+       height="14.578921"
+       x="357.79102"
+       y="780.82977" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="415.43454"
-       y="818.99188"
+       x="364.40833"
+       y="791.65643"
        id="text4253-8-0-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="415.43454"
-         y="818.99188"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:lato;-inkscape-font-specification:lato;opacity:0.35;fill:#333333;fill-opacity:1"
+         x="364.40833"
+         y="791.65643"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:lato;-inkscape-font-specification:lato;opacity:0.35;fill:#333333;fill-opacity:1"
          id="tspan4328-1">my-app2.org</tspan></text>
+    <rect
+       style="opacity:1;fill:#fff7d7;fill-opacity:0.98431373;stroke:none;stroke-width:0.34999999;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4384-7-0"
+       width="103.87482"
+       height="14.578921"
+       x="442.83475"
+       y="780.82977" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="449.27322"
+       y="792.11261"
+       id="text4253-8-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="449.27322"
+         y="792.11261"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.25px;font-family:lato;-inkscape-font-specification:lato;opacity:0.35;fill:#1a1a1a;fill-opacity:1"
+         id="tspan4328">www.my-app2.org</tspan></text>
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker11044);marker-end:url(#marker11102)"
+       d="m 346.41981,808.82916 -46.58062,106.2851"
+       id="path4416"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect2995-7-5"
+       inkscape:connection-end="#rect4330" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker12090);marker-end:url(#marker10986)"
+       d="m 415.0186,808.82916 0,103.11005"
+       id="path4418"
+       inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect2995-7-5"
+       inkscape:connection-end="#rect4330-6" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker10940);marker-end:url(#marker10894)"
+       d="m 406.64896,457.46835 0,76.50571"
+       id="path4420"
+       inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect2995-79"
+       inkscape:connection-end="#rect2995-7-5" />
   </g>
 </svg>
