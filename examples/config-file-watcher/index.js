@@ -14,12 +14,12 @@ let setConfigFromFile = () => {
   fs.readFile(configFile, 'utf8', (err, data) => {
     if (err) throw err;
     let result = proxy.setConfig( JSON.parse(data) );
-    console.log( `Config set: ${result} @ ${proxy.getConfig().created_at}` );
+    console.log( `Config set: ${result}` );
   });
 }
 
 proxy.listen(PORT, () => {
-  console.log( `\nProxy ist listening on port ${PORT}.` );
+  console.log( `\nWebserver (USP) ist listening on port ${PORT}.` );
   setConfigFromFile();
 }).start();
 

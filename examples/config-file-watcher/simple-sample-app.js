@@ -1,22 +1,25 @@
 
 const http = require('http');
 
-const tcp_host = '127.0.0.1';
-const tcp_port = 3001;
+const prefix = process.platform === 'win32' ? '//./pipe/' : '';
+const endpoints = {host: '127.0.0.1', port: 3001, path: '/tmp/3001.sock'};
+endpoints.path = prefix + endpoints.path;
 
-const prefix = process.platform === 'win32' ? '//./pipe/' : '/tmp/';
-const ipc = prefix + tcp_host.replace(/\./g, '-') + '-' + tcp_port;
 
-function handleRequest(request, response) {
-  response.end('OK');
+function handleRequestTCP(request, response) {
+  response.end('TCP');
 }
 
-console.log('\nsimple-sample-app listening at:');
+function handleRequestIPC(request, response) {
+  response.end('IPC');
+}
 
-http.createServer(handleRequest).listen(tcp_port, tcp_host, function () {
-  console.log('http://' + tcp_host + ':' + tcp_port);
+console.log('\nSimple sample app listening at:');
+
+http.createServer(handleRequestTCP).listen({port: endpoints.port, host: endpoints.host}, function () {
+  console.log( `http://${endpoints.host}:${endpoints.port}` );
 });
 
-http.createServer(handleRequest).listen(ipc, function () {
-  console.log(ipc);
+http.createServer(handleRequestIPC).listen({path: endpoints.path}, function () {
+  console.log(endpoints.path);
 });

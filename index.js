@@ -198,7 +198,7 @@ class UpstreamProxy {
   _generateRoutesMap(config) {
     let routes = new Map();
     if (config instanceof Array) {
-      let prefix = process.platform === 'win32' ? '//./pipe/' : '';
+      const prefix = process.platform === 'win32' ? '//./pipe/' : '';
       for (let obj of config) {
         if (prefix && obj.endpoint && obj.endpoint.path) {
           obj.endpoint.path = prefix + obj.endpoint.path;

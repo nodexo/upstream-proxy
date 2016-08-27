@@ -1,6 +1,6 @@
 {
   "name": "config-file-watcher",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "update configuration on config file change",
   "main": "index.js",
   "scripts": {
@@ -10,13 +10,14 @@
   },
   "keywords": [
     "upstream-proxy",
-    "example"
+    "example",
+    "file watcher"
   ],
   "author": "Michael Kortstiege",
   "private": true,
   "license": "MIT",
   "dependencies": {
     "chokidar": "^1.6.0",
-    "upstream-proxy": "^1.3.0"
+    "upstream-proxy": "^2.0.0"
   }
 }

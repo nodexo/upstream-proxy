@@ -1,17 +1,8 @@
 
-{
-  "frontend_connectors": [
+[
     {
-      "host_headers": [ "localhost", "127.0.0.1", "[::1]" ],
-      "target": "local-website"
+        "name": "app-1",
+        "hostnames": [ "localhost" ],
+        "endpoint": { "host": "127.0.0.1", "port": 3001 }
     }
-  ],
-  "backend_connectors": [
-    {
-      "name": "local-website",
-      "endpoints": {
-        "tcp": { "host": "127.0.0.1", "port": 3001 }
-      }
-    }
-  ]
-}
+]
