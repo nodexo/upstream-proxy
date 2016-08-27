@@ -4,6 +4,8 @@ Upstream Proxy
 
 Route requests by hostname to Node.js apps.
 
+[https://raw.githubusercontent.com/nodexo/upstream-proxy/branch/img/diagram-1.gif](![diagram-1](https://raw.githubusercontent.com/nodexo/upstream-proxy/branch/img/diagram-1-preview.gif))
+
 ### It works with all kinds of web traffic...
 
 * HTTP
