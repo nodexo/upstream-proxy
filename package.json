@@ -34,7 +34,9 @@
     "url": "https://github.com/nodexo/upstream-proxy/issues"
   },
   "homepage": "https://github.com/nodexo/upstream-proxy#readme",
-  "dependencies": {},
+  "dependencies": {
+    "sni": "^1.0.0"
+  },
   "devDependencies": {
     "jsdoc": "^3.4.0"
   }
