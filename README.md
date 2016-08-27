@@ -2,7 +2,7 @@
 Upstream Proxy
 ==============
 
-Virtual host your apps: Upstream Proxy routes incoming requests - based on their host header - to Node.js apps in the backend.
+Route requests by hostname to Node.js apps.
 
 ### It works with all kinds of web traffic...
 
@@ -12,21 +12,15 @@ Virtual host your apps: Upstream Proxy routes incoming requests - based on their
 * WebSocket
 * Server-Sent Events
 
-###...using...
+### ...and is
 
-* host/domain names
-* IP addresses *(e.g. 127.0.0.1)*
-* IPv6 addresses *(e.g. [::1])*
+* easy to use
+* robust
+* fast
 
-### ...and is optimized for
+Plug it to an NGINX upstream, connect it to any other service - or expose it directly to the internet (port 80 and 443). 
 
-* ease of use
-* robustness
-* speed
-
-Plug it to an NGINX upstream (via TCP port or IPC socket), connect it to any other service - or expose it directly to the internet (port 80 and 443). 
-
-In the future there will be [examples](https://github.com/nodexo/upstream-proxy/tree/master/examples) covering most use cases.
+In the future there will be a lot of [examples](https://github.com/nodexo/upstream-proxy/tree/master/examples) covering most use cases.
 
 
 Installation
@@ -39,27 +33,18 @@ Usage
 -----
 Basic example:
 ```javascript
-  const upstreamProxy = require('upstream-proxy');
+const upstreamProxy = require('upstream-proxy');
 
-  let myConfig = {
-    frontend_connectors: [
-      {
-        host_headers: [ 'localhost', '127.0.0.1', '[::1]' ],
-        target: 'local-website'
-      }
-    ],
-    backend_connectors: [
-      { 
-          name: 'local-website',
-          endpoints: {
-              tcp: { host: '127.0.0.1', port: 3001 }
-          }
-      }
-    ]
-  }
+let myConfig = [
+    {
+        name: 'app-1',
+        hostnames: [ 'localhost' ],
+        endpoint: { host: '127.0.0.1', port: 3001 }
+    }
+];
 
-  let proxy = new upstreamProxy(myConfig);
-  proxy.listen(3000).start();
+let proxy = new upstreamProxy(myConfig);
+proxy.listen(3000).start();
 ```
 
 
@@ -131,11 +116,7 @@ console.log( proxyStatus );
 
 ### setConfig(obj)
 
-Sets the configuration and generates a routing map.
-
-- Complete overwrite of current configuration and routes
-- (Time)stamps the configuration with a new property "created_at" in ms
-
+Sets the configuration and generates a routing map - completely overwrites current configuration and routes.  
 Existing connections are not affected.
 
 Example:
@@ -146,22 +127,13 @@ const upstreamProxy = require('upstream-proxy');
 let proxy = new upstreamProxy();
 proxy.listen(3000).start();
 
-let myConfig = {
-  "frontend_connectors": [
+let myConfig = [
     {
-      "host_headers": [ 'localhost', '127.0.0.1', '[::1]' ],
-      "target": "local-website"
+        name: 'app-1',
+        hostnames: [ 'localhost' ],
+        endpoint: { host: '127.0.0.1', port: 3001 }
     }
-  ],
-  "backend_connectors": [
-    {
-      "name": "local-website",
-      "endpoints": { 
-        "tcp": { "host": "127.0.0.1", "port": 3001 }
-      }
-    }
-  ]
-}
+];
 
 let result = proxy.setConfig(myConfig);
 
@@ -180,23 +152,13 @@ let liveConfig = proxy.getConfig();
 
 console.log( JSON.stringify(liveConfig, null, 2) );
 /*
-{
-  "created_at": 1472060672024,
-  "frontend_connectors": [
+[
     {
-      "host_headers": [ "localhost",  "127.0.0.1",  "[::1]" ],
-      "target": "local-website"
+        "name": "app-1",
+        "hostnames": [ "localhost" ],
+        "endpoint": { "host": "127.0.0.1", "port": 3001 }
     }
-  ],
-  "backend_connectors": [
-    {
-      "name": "local-website",
-      "endpoints": {
-        "tcp": { "host": "127.0.0.1", "port": 3001 }
-      }
-    }
-  ]
-}
+]
 */
 ```
 
@@ -213,9 +175,7 @@ let liveRoutes = proxy.getRoutes();
 console.log( JSON.stringify([...liveRoutes], null, 2) ); 
 /*
 [
-  [ "localhost", { "tcp": { "host": "127.0.0.1", "port": 3001 } } ],
-  [ "127.0.0.1", { "tcp": { "host": "127.0.0.1", "port": 3001 } } ],
-  [ "[::1]",     { "tcp": { "host": "127.0.0.1", "port": 3001 } } ]
+  [ "localhost", { "host": "127.0.0.1", "port": 3001 } ]
 ]
 */
 ```
@@ -281,7 +241,6 @@ console.log( nr );
 // 7
 ```
 
-It only affects the exact host name, "localhost" DOES NOT disconnect clients for "127.0.0.1"
 
 
 ### disconnectAllClients()

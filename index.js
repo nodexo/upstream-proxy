@@ -40,7 +40,7 @@ class UpstreamProxy {
     ]);
 
     try {
-      this.config = this._generateConfig(config);
+      this.config = config;
       this.routes = this._generateRoutesMap(this.config); 
     } 
     catch(e) {};
@@ -118,13 +118,7 @@ class UpstreamProxy {
       socket.pipe(backend).pipe(socket);
     });
 
-    if (route.ipc) {
-      backend.connect(route.ipc);
-    } else if (route.tcp) {
-      backend.connect(route.tcp);
-    } else {
-      return socket.end(this._httpResponse(502));
-    }
+    backend.connect(route);
   }
 
   /**
@@ -197,54 +191,28 @@ class UpstreamProxy {
   }
 
   /**
-   * Generates config object
-   * @param {Object} obj
-   * @return {Object}
-   */
-  _generateConfig(obj = {}) {
-    let config = {};
-    config.created_at = new Date().getTime();
-    if (obj.frontend_connectors) {
-      config.frontend_connectors = obj.frontend_connectors;
-    }
-    if (obj.backend_connectors) {
-      config.backend_connectors = obj.backend_connectors;
-    }
-    return config;
-  }
-
-  /**
    * Generates routes map
    * @param {Object} config
    * @return {Map}
    */
   _generateRoutesMap(config) {
-    let endpoints = this._generateEndpointsMap(config.backend_connectors);
     let routes = new Map();
-    for (let fc of config.frontend_connectors || []) {
-      for (let hh of fc.host_headers) {
-        routes.set(hh, endpoints.get(fc.target));
-        this.host_headers[hh] = new Map();
+    if (config instanceof Array) {
+      let prefix = process.platform === 'win32' ? '//./pipe/' : '';
+      for (let obj of config) {
+        if (prefix && obj.endpoint && obj.endpoint.path) {
+          obj.endpoint.path = prefix + obj.endpoint.path;
+        }
+        let hosts = obj.hostnames || [];
+        for (let host of hosts) {
+          if (obj.endpoint) {
+            routes.set(host, obj.endpoint);
+            this.host_headers[host] = new Map();
+          }
+        }
       }
     }
     return routes;
-  }
-
-  /**
-   * Generates endpoints map
-   * @param {Array} backend_connectors
-   * @return {Map}
-   */
-  _generateEndpointsMap(backend_connectors = []) {
-    let endpoints = new Map();
-    let prefix = process.platform === 'win32' ? '//./pipe/' : '/tmp/';
-    for (let bc of backend_connectors) {
-      if (bc.endpoints.ipc) {
-        bc.endpoints.ipc = prefix + bc.endpoints.ipc;
-      }
-      endpoints.set(bc.name, bc.endpoints);
-    }
-    return endpoints;
   }
 
   /**
@@ -295,7 +263,7 @@ class UpstreamProxy {
    */
   setConfig(config = {}) {
     try {
-      this.config = this._generateConfig(config);
+      this.config = config;
       this.routes = this._generateRoutesMap(this.config);
       return 'OK';
     } catch (e) {
