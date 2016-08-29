@@ -1,7 +1,7 @@
 {
   "name": "upstream-proxy",
   "version": "2.0.5",
-  "description": "Route requests by hostname to Node.js apps.",
+  "description": "Route requests to Node.js apps by hostname.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,7 +17,6 @@
     "router",
     "dispatcher",
     "nginx",
-    "apache",
     "adapter",
     "connector",
     "http",
@@ -28,7 +27,7 @@
     "server-sent events",
     "sse"
   ],
-  "author": "Michael Kortstiege",
+  "author": "nodexo",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nodexo/upstream-proxy/issues"
