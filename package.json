@@ -1,6 +1,6 @@
 {
   "name": "upstream-proxy",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Route requests to Node.js apps by hostname.",
   "main": "index.js",
   "scripts": {
