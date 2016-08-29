@@ -27,7 +27,7 @@
     "server-sent events",
     "sse"
   ],
-  "author": "nodexo",
+  "author": "Michael Kortstiege",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nodexo/upstream-proxy/issues"
