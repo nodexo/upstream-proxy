@@ -5,7 +5,7 @@ Upstream Proxy
 Route requests by hostname to Node.js apps.
 
 <p align="left">
-    <a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalon.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalon-preview.png" alt="Upstream Proxy standalone" /></a>
+    <a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone-preview.png" alt="Upstream Proxy standalone" /></a>
 </p>
 
 <p align="left">
