@@ -19,8 +19,6 @@ class UpstreamProxy {
   /**
     * @constructs UpstreamProxy server
     * @param {Object} config - Sets data for calculating the routes.
-    * @param {Array} config.frontend_connectors - Describes frontend connectors.
-    * @param {Array} config.backend_connectors - Describes backend connectors.
     * @param {Object} callbacks - Sets callbacks for external error handling.
     * @return {Object}
     */
