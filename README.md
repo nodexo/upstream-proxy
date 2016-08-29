@@ -4,13 +4,6 @@ Upstream Proxy
 
 Route requests by hostname to Node.js apps.
 
-<style>
-  p a {
-    display: inline-block;
-    margin-right: 8px;
-  }
-</style>
-
 <div>
     <a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone-preview.png" alt="Upstream Proxy standalone" /></a>
 
