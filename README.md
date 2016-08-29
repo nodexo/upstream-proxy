@@ -4,7 +4,13 @@ Upstream Proxy
 
 Route requests by hostname to Node.js apps.
 
-<a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/diagram-1.gif"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/diagram-1-preview.gif" alt="digram 1" /></a>
+<p align="left">
+    <a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalon.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalon-preview.png" alt="Upstream Proxy standalone" /></a>
+</p>
+
+<p align="left">
+    <a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy-preview.png" alt="NGINX with Upstream Proxy" /></a>
+</p>
 
 ### It works with all kinds of web traffic...
 
