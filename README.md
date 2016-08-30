@@ -6,8 +6,8 @@ Route requests to Node.js apps by hostname.
 
 Plug it to an NGINX upstream, connect it to any other service - or expose it directly to the internet (port 80 and 443). 
 
-<a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone-preview.png" alt="Upstream Proxy standalone" /></a>
-<a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy-preview.png" alt="NGINX with Upstream Proxy" /></a>
+<a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/upstream-proxy-standalone-preview.png" alt="Upstream Proxy standalone" width="125" /></a>
+<a href="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy.png"><img src="https://raw.githubusercontent.com/nodexo/upstream-proxy/master/img/nginx-upstream-proxy-preview.png" alt="NGINX with Upstream Proxy" width="125" /></a>
 
 ### It works with all kinds of web traffic...
 
