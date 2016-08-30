@@ -91,11 +91,14 @@ class UpstreamProxy {
     if (data instanceof Buffer === false || data.length < 1) {
       return socket.end(this._httpResponse(400));
     }
-
-    const host_header = this._getHostHeader(data);
+    let host_header = this._getHostHeader(data);
     let route = this.routes.get(host_header);
     if (!route) {
-      return socket.end(this._httpResponse(404));
+      route = this.routes.get('*');
+      if (!route) {
+        return socket.end(this._httpResponse(404));
+      }
+      host_header = '*';
     }
 
     let backend = new net.Socket();

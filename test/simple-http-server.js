@@ -9,11 +9,11 @@ const ipc_prefix = process.platform === 'win32' ? '//./pipe/' : '';
 const ipc = ipc_prefix + ipc_path;
 
 function handleRequestTCP(request, response) {
-  response.end('TCP');
+  response.end('TCP - ' + request.url);
 }
 
 function handleRequestIPC(request, response) {
-  response.end('IPC');
+  response.end('IPC - ' + request.url);
 }
 
 console.log('\nSimple web server listening at:');

@@ -50,6 +50,27 @@ let proxy = new upstreamProxy(myConfig);
 proxy.listen(3000).start();
 ```
 
+**If you want to catch all requests that don't match any given host name, 
+you can use an asterisk:**
+
+```javascript
+let myConfig = [
+    {
+        name: 'app-1',
+        hostnames: [ 'localhost' ],
+        endpoint: { host: '127.0.0.1', port: 3001 }
+    },
+    {
+        ...
+    },
+    {
+        name: 'catch-all',
+        hostnames: [ '*' ],
+        endpoint: { host: '127.0.0.1', port: 3999 }
+    }
+];
+```
+
 
 API Methods
 ------------
