@@ -8,6 +8,7 @@
  * import sni from 'sni';
 */
 const net = require('net');
+const xpipe = require('xpipe');
 const sni = require('sni');
 
 /**
@@ -174,10 +175,9 @@ class UpstreamProxy {
   _generateRoutesMap(config) {
     let routes = new Map();
     if (config instanceof Array) {
-      const prefix = process.platform === 'win32' ? '//./pipe/' : '';
       for (let obj of config) {
-        if (prefix && obj.endpoint && obj.endpoint.path) {
-          obj.endpoint.path = prefix + obj.endpoint.path;
+        if (obj.endpoint && obj.endpoint.path) {
+          obj.endpoint.path = xpipe.eq(obj.endpoint.path);
         }
         let hosts = obj.hostnames || [];
         for (let host of hosts) {
