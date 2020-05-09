@@ -122,7 +122,14 @@ class UpstreamProxy {
       socket.pipe(backend).pipe(socket);
     });
 
-    backend.connect(route);
+    try {
+      backend.connect(route);
+    } catch(e) {
+      //catch connection errors like 
+      // - ENOTFOUND when a DNS lookup fails
+      // - ECONNREFUSED when the connection attempt is rejected
+      // - others?
+    }
   }
 
   /**
