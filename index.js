@@ -70,7 +70,6 @@ class UpstreamProxy {
     }
 
     socket.once("error", (err) => {
-      //console.log(err);
       socket.end();
     });
 
@@ -111,9 +110,11 @@ class UpstreamProxy {
     backend.on("connect", () => {
       this._addConnection(socket, host_header);
       socket.on("error", () => {
+        this._server.emit("error");
         this._removeConnection(socket, backend);
       });
       backend.on("close", () => {
+        this._server.emit("close");
         this._removeConnection(socket, backend);
       });
       backend.write(data);
