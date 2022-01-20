@@ -24,7 +24,6 @@ class UpstreamProxy {
     * @return {Object}
     */
   constructor(config = {}, callbacks = {}) {
-
     this.active = false;
     this.id = 0;
     this.symId = Symbol('id');
@@ -63,6 +62,7 @@ class UpstreamProxy {
     server.disconnectClients = (host) => this.disconnectClients(host);
     server.disconnectAllClients = () => this.disconnectAllClients();
 
+    this._server = server;
     return server;
   }
 
@@ -120,6 +120,10 @@ class UpstreamProxy {
       backend.on('close', () => { this._removeConnection(socket, backend); });
       backend.write(data);
       socket.pipe(backend).pipe(socket);
+    });
+
+    backend.on('data', (data)=>{
+      this._server.emit("data", data);
     });
 
     backend.connect(route);

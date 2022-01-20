@@ -1,6 +1,6 @@
 
 'use strict';
-
+const HTTPParser = require('http-parser-js').HTTPParser;
 const fs = require('fs');
 const upstreamProxy = require('upstream-proxy');
 const chokidar = require('chokidar');
@@ -26,3 +26,27 @@ proxy.listen(PORT, () => {
 chokidar.watch(configFile).on('change', (event, path) => {
   setConfigFromFile();
 });
+
+proxy.on('data', data => {
+  const parser = new HTTPParser(HTTPParser.RESPONSE);
+  parser.onHeadersComplete = (res) => {
+    // console.log(res.headers);
+  }
+
+  parser.onBody = (chunk, start, len) => {
+    console.log(`${chunk.toString('utf8', start, start + len)}`);
+  }
+
+  parser.onMessageComplete = () => {
+    // console.log('\nDone');
+  }
+
+  try {
+    parser.execute(data, 0, data.length);
+  } catch (e) {
+    console.log(e);
+  }
+
+
+});
+

@@ -3,6 +3,6 @@
     {
         "name": "app-1",
         "hostnames": [ "localhost" ],
-        "endpoint": { "host": "127.0.0.1", "port": 3001 }
+        "endpoint": { "host": "www.bbc.co.uk", "port": 80 }
     }
 ]
