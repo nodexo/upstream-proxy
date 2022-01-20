@@ -1,55 +1,49 @@
-
-'use strict';
+"use strict";
 
 /**
  * Imports
  * ...wait for v8 to implement es6 style
  * import net from 'net';
  * import sni from 'sni';
-*/
-const net = require('net');
-const xpipe = require('xpipe');
-const sni = require('sni');
+ */
+const net = require("net");
+const xpipe = require("xpipe");
+const sni = require("sni");
 
 /**
  * Creates a new upstream proxy instance.
  * @class
  */
 class UpstreamProxy {
-
   /**
-    * @constructs UpstreamProxy server
-    * @param {Object} config - Sets data for calculating the routes.
-    * @param {Object} callbacks - Sets callbacks for external error handling.
-    * @return {Object}
-    */
+   * @constructs UpstreamProxy server
+   * @param {Object} config - Sets data for calculating the routes.
+   * @param {Object} callbacks - Sets callbacks for external error handling.
+   * @return {Object}
+   */
   constructor(config = {}, callbacks = {}) {
     this.active = false;
     this.id = 0;
-    this.symId = Symbol('id');
-    this.symHostHeader = Symbol('host_header');
+    this.symId = Symbol("id");
+    this.symHostHeader = Symbol("host_header");
     this.host_headers = {};
     this.sockets = new Map();
 
     this.status_codes = new Map([
-      [400, 'Bad Request'],
-      [404, 'Not Found'],
-      [500, 'Internal Server Error'],
-      [502, 'Bad Gateway'],
-      [503, 'Service Unavailable']
+      [400, "Bad Request"],
+      [404, "Not Found"],
+      [500, "Internal Server Error"],
+      [502, "Bad Gateway"],
+      [503, "Service Unavailable"],
     ]);
 
     try {
       this.config = config;
-      this.routes = this._generateRoutesMap(this.config); 
-    } 
-    catch(e) {};
-
+      this.routes = this._generateRoutesMap(this.config);
+    } catch (e) {}
     try {
       this.callbacks = callbacks;
-    } 
-    catch(e) {};
-
+    } catch (e) {}
     let server = net.createServer((socket) => this._handleConnection(socket));
     server.start = () => this.start();
     server.stop = () => this.stop();
@@ -75,12 +69,12 @@ class UpstreamProxy {
       return socket.end(this._httpResponse(503));
     }
 
-    socket.once('error', (err) => {
+    socket.once("error", (err) => {
       //console.log(err);
       socket.end();
     });
 
-    socket.once('data', (data) => this._handleData(socket, data));
+    socket.once("data", (data) => this._handleData(socket, data));
   }
 
   /**
@@ -95,16 +89,16 @@ class UpstreamProxy {
     let host_header = this._getHostHeader(data);
     let route = this.routes.get(host_header);
     if (!route) {
-      route = this.routes.get('*');
+      route = this.routes.get("*");
       if (!route) {
         return socket.end(this._httpResponse(404));
       }
-      host_header = '*';
+      host_header = "*";
     }
 
     let backend = new net.Socket();
 
-    backend.once('error', (err) => {
+    backend.once("error", (err) => {
       backend.destroy();
       const status = 503;
       if (this.callbacks[status]) {
@@ -114,15 +108,19 @@ class UpstreamProxy {
       }
     });
 
-    backend.on('connect', () => {
+    backend.on("connect", () => {
       this._addConnection(socket, host_header);
-      socket.on('error', () => { this._removeConnection(socket, backend); });
-      backend.on('close', () => { this._removeConnection(socket, backend); });
+      socket.on("error", () => {
+        this._removeConnection(socket, backend);
+      });
+      backend.on("close", () => {
+        this._removeConnection(socket, backend);
+      });
       backend.write(data);
       socket.pipe(backend).pipe(socket);
     });
 
-    backend.on('data', (data)=>{
+    backend.on("data", (data) => {
       this._server.emit("data", data);
     });
 
@@ -135,10 +133,13 @@ class UpstreamProxy {
    * @return {string}
    */
   _getHostHeader(data) {
-    if (data[0] === 22) { //secure
+    if (data[0] === 22) {
+      //secure
       return this.routes.get(sni(data));
     } else {
-      let result = data.toString('utf8').match(/^(H|h)ost: (\[[^\]]*\]|[^ \:\r\n]+)/im);
+      let result = data
+        .toString("utf8")
+        .match(/^(H|h)ost: (\[[^\]]*\]|[^ \:\r\n]+)/im);
       if (result) {
         return result[2];
       }
@@ -209,7 +210,7 @@ class UpstreamProxy {
         i++;
       } catch (e) {
         //console.log(e);
-      }  
+      }
     }
     return i;
   }
@@ -222,9 +223,9 @@ class UpstreamProxy {
   _httpResponse(nr) {
     let reason_phrase = this.status_codes.get(nr);
     if (!reason_phrase) {
-      return 'HTTP/1.1 500 Internal Server Error\r\n\r\n';
+      return "HTTP/1.1 500 Internal Server Error\r\n\r\n";
     }
-    return 'HTTP/1.1 ' + nr + ' ' + reason_phrase + '\r\n\r\n';
+    return "HTTP/1.1 " + nr + " " + reason_phrase + "\r\n\r\n";
   }
 
   /**
@@ -245,9 +246,9 @@ class UpstreamProxy {
     try {
       this.config = config;
       this.routes = this._generateRoutesMap(this.config);
-      return 'OK';
+      return "OK";
     } catch (e) {
-      return 'ERROR: ' + e.message;
+      return "ERROR: " + e.message;
     }
   }
 
@@ -274,9 +275,9 @@ class UpstreamProxy {
   setCallbacks(callbacks = {}) {
     try {
       this.callbacks = callbacks;
-      return 'OK';
+      return "OK";
     } catch (e) {
-      return 'ERROR: ' + e.message;
+      return "ERROR: " + e.message;
     }
   }
 
@@ -286,7 +287,7 @@ class UpstreamProxy {
    */
   start() {
     this.active = true;
-    return 'OK';
+    return "OK";
   }
 
   /**
@@ -295,7 +296,7 @@ class UpstreamProxy {
    */
   stop() {
     this.active = false;
-    return 'OK';
+    return "OK";
   }
 
   /**
@@ -304,9 +305,9 @@ class UpstreamProxy {
    */
   getStatus() {
     if (this.active === true) {
-      return 'active';
+      return "active";
     }
-    return 'passive';
+    return "passive";
   }
 
   /**
@@ -314,9 +315,11 @@ class UpstreamProxy {
    * @param {string} host
    * @return {number}
    */
-  disconnectClients(host = '') {
+  disconnectClients(host = "") {
     try {
-      return this._closeFrontendConnections( Array.from( this.host_headers[host].keys() ) );
+      return this._closeFrontendConnections(
+        Array.from(this.host_headers[host].keys())
+      );
     } catch (e) {
       return 0;
     }
@@ -328,17 +331,16 @@ class UpstreamProxy {
    */
   disconnectAllClients() {
     try {
-      return this._closeFrontendConnections( Array.from( this.sockets.keys() ) );
+      return this._closeFrontendConnections(Array.from(this.sockets.keys()));
     } catch (e) {
       return 0;
     }
   }
-
 }
 
 /**
  * Export
  * ...wait for v8 to implement es6 style:
  * export default UpstreamProxy;
-*/
+ */
 module.exports = UpstreamProxy;
