@@ -1,23 +1,27 @@
 {
-  "name": "config-file-watcher",
-  "version": "1.0.0",
-  "description": "update configuration on config file change",
-  "main": "index.js",
-  "scripts": {
-    "start": "node simple-sample-app && node index",
-  	"winstart": "start node simple-sample-app && start node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "upstream-proxy",
-    "example",
-    "file watcher"
-  ],
-  "author": "Michael Kortstiege",
-  "private": true,
-  "license": "MIT",
-  "dependencies": {
-    "chokidar": "^1.6.0",
-    "upstream-proxy": "^2.0.0"
-  }
+    "name": "config-file-watcher",
+    "version": "1.0.0",
+    "description": "update configuration on config file change",
+    "main": "index.js",
+    "scripts": {
+        "start": "node simple-sample-app && node index",
+        "debug": "nodemon index",
+        "winstart": "start node simple-sample-app && start node index",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "upstream-proxy",
+        "example",
+        "file watcher"
+    ],
+    "author": "Michael Kortstiege",
+    "private": true,
+    "license": "MIT",
+    "dependencies": {
+        "chokidar": "^1.6.0",
+        "http-parser-js": "^0.5.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
 }

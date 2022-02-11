@@ -1,43 +1,45 @@
 {
-  "name": "upstream-proxy",
-  "version": "2.1.1",
-  "description": "Route requests to Node.js apps by hostname.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d doc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nodexo/upstream-proxy.git"
-  },
-  "keywords": [
-    "proxy",
-    "upstream",
-    "router",
-    "dispatcher",
-    "nginx",
-    "adapter",
-    "connector",
-    "http",
-    "https",
-    "tls",
-    "http/2",
-    "websocket",
-    "server-sent events",
-    "sse"
-  ],
-  "author": "Michael Kortstiege",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nodexo/upstream-proxy/issues"
-  },
-  "homepage": "https://github.com/nodexo/upstream-proxy#readme",
-  "dependencies": {
-    "sni": "^1.0.0",
-    "xpipe": "^1.0.2"
-  },
-  "devDependencies": {
-    "jsdoc": "^3.4.0"
-  }
+    "name": "@markhigham/upstream-proxy",
+    "version": "2.1.1",
+    "description": "Route requests to Node.js apps by hostname.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prettier": "prettier . --check",
+        "jsdoc": "./node_modules/.bin/jsdoc ./index.js -d doc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/markhigham/upstream-proxy.git"
+    },
+    "keywords": [
+        "proxy",
+        "upstream",
+        "router",
+        "dispatcher",
+        "nginx",
+        "adapter",
+        "connector",
+        "http",
+        "https",
+        "tls",
+        "http/2",
+        "websocket",
+        "server-sent events",
+        "sse"
+    ],
+    "author": "Michael Kortstiege",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/nodexo/upstream-proxy/issues"
+    },
+    "homepage": "https://github.com/nodexo/upstream-proxy#readme",
+    "dependencies": {
+        "sni": "^1.0.0",
+        "xpipe": "^1.0.2"
+    },
+    "devDependencies": {
+        "jsdoc": "^3.4.0",
+        "prettier": "^2.5.1"
+    }
 }
